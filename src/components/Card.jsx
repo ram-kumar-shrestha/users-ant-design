@@ -5,20 +5,22 @@ import {
   DeleteFilled,
   HeartFilled,
 } from "@ant-design/icons";
-import { Avatar, Card } from "antd";
+import { Avatar, Button, Card } from "antd";
 import Description from "./Description";
 import { useContext, useState } from "react";
-import { UserContext } from "../App";
+import { GlobalHelperContext, UserContext } from "../App";
 
 import "./card.css";
 const { Meta } = Card;
 
 const CardUser = () => {
-  const context = useContext(UserContext);
+  const userContext = useContext(UserContext);
+  const globalHelperContext = useContext(GlobalHelperContext);
   const [isClicked, setIsClicked] = useState(false);
+
   return (
     <Card
-      cover={<img alt="example" src={context.imgURL} />}
+      cover={<img alt="example" src={userContext?.imgURL} />}
       actions={[
         <button
           className="btn fav-btn"
@@ -30,16 +32,23 @@ const CardUser = () => {
             <HeartFilled key="favorite" style={{ color: "#ff4242d9" }} />
           )}
         </button>,
-        <EditOutlined key="edit" />,
+
+        <button
+          className="btn"
+          onClick={() => globalHelperContext.editHandler(userContext?.id)}
+        >
+          <EditOutlined key="edit" />
+        </button>,
+
         <button
           className="btn btn-delete"
-          onClick={() => context.deleteHandler(context.id)}
+          onClick={() => globalHelperContext.deleteHandler(userContext?.id)}
         >
           <DeleteFilled key="delete" />,
         </button>,
       ]}
     >
-      <Meta title={context.name} description={<Description />} />
+      <Meta title={userContext?.name} description={<Description />} />
     </Card>
   );
 };
