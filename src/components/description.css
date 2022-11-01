@@ -1,0 +1,14 @@
+.desc-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.desc-container > p {
+  margin: 0;
+}
+
+.desc-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
