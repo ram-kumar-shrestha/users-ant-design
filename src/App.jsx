@@ -20,7 +20,11 @@ function App() {
         console.error(e);
         setMessage("Something went wrong");
       });
-  }, [users.length]);
+  }, []);
+
+  const deleteHandler = (id) => {
+    setUsers(users.filter((user) => user.id !== id));
+  };
 
   return (
     <section className="wrapper">
@@ -32,11 +36,13 @@ function App() {
             return (
               <UserContext.Provider
                 value={{
+                  id,
                   name,
                   phone,
                   email,
                   website,
                   imgURL: "https://joeschmoe.io/api/v1/random",
+                  deleteHandler,
                 }}
                 key={id}
               >
